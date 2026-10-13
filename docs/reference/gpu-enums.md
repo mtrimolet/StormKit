@@ -1,0 +1,839 @@
+# `stormkit.gpu` reference — enumerations
+
+Part of the [`stormkit.gpu` reference](gpu.md).
+
+All enumerations live in `namespace stormkit::gpu` and are declared in the generated file
+`modules/stormkit/gpu/core/vulkan/enums.cppm` (produced from `enums.cppm.tpl` and `mapping.json`;
+do not edit it by hand). Each enumerator has the numeric value of the Vulkan constant shown next to
+it, so conversion to and from Vulkan is a cast: `gpu::to_vk<VkFormat>(value)` / `gpu::from_vk<gpu::PixelFormat>(vk_value)`.
+
+Enumerations whose name ends in `Flag` are bit masks: combine them with `|` and test them with
+`has_flag_bit` (see [flags](core-typesafe.md#stormkitcoretypesafeflags)). Every enumeration is
+formattable and has a `stormkit::meta::enumerate<E>()` specialisation returning all its enumerators.
+
+Helper functions declared alongside the enumerations:
+
+| Function | Description |
+| --- | --- |
+| `to_vk<VkType>(value)`, `from_vk<Enum>(vk_value)` | Cast between a StormKit enumeration and its Vulkan counterpart. |
+| `from_image(image_format)` | The `PixelFormat` matching a `stormkit.image` format. |
+| `get_format_channel_count(PixelFormat)`, `get_format_element_count(PixelFormat)` | Number of channels / elements of a pixel format. |
+| `is_depth_format`, `is_depth_only_format`, `is_stencil_format`, `is_stencil_only_format`, `is_depth_stencil_format` | Classify a `PixelFormat`. |
+| `QUEUE_FAMILY_IGNORED` | `u32` sentinel for "no queue family transfer" in memory barriers. |
+
+This page is generated from the sources by `docs/tools/gen_gpu_enums.py`; regenerate it rather
+than editing the tables by hand.
+
+## Index
+
+| Enumeration | Underlying type | Kind | Enumerators |
+| --- | --- | --- | --- |
+| [`AccessFlag`](#accessflag) | `u32` | flags | 17 |
+| [`AttachmentLoadOperation`](#attachmentloadoperation) | `u8` | enum | 3 |
+| [`AttachmentStoreOperation`](#attachmentstoreoperation) | `u8` | enum | 2 |
+| [`BlendFactor`](#blendfactor) | `u8` | enum | 19 |
+| [`BlendOperation`](#blendoperation) | `u8` | enum | 5 |
+| [`BorderColor`](#bordercolor) | `u8` | enum | 6 |
+| [`BufferUsageFlag`](#bufferusageflag) | `u16` | flags | 9 |
+| [`ColorComponentFlag`](#colorcomponentflag) | `u8` | flags | 8 |
+| [`ColorSpace`](#colorspace) | `u32` | enum | 16 |
+| [`CommandBufferLevel`](#commandbufferlevel) | `u8` | enum | 2 |
+| [`CompareOperation`](#compareoperation) | `u8` | enum | 8 |
+| [`CullModeFlag`](#cullmodeflag) | `u8` | flags | 4 |
+| [`DebugObjectType`](#debugobjecttype) | `u32` | enum | 31 |
+| [`DependencyFlag`](#dependencyflag) | `u8` | flags | 4 |
+| [`DescriptorType`](#descriptortype) | `u8` | enum | 11 |
+| [`DynamicState`](#dynamicstate) | `u8` | enum | 9 |
+| [`Filter`](#filter) | `u32` | enum | 3 |
+| [`FormatFeatureFlag`](#formatfeatureflag) | `u32` | flags | 23 |
+| [`FrontFace`](#frontface) | `u8` | enum | 2 |
+| [`GeometryFlag`](#geometryflag) | `u8` | flags | 2 |
+| [`GeometryType`](#geometrytype) | `u8` | enum | 3 |
+| [`ImageAspectFlag`](#imageaspectflag) | `u8` | flags | 4 |
+| [`ImageCreateFlag`](#imagecreateflag) | `u16` | flags | 13 |
+| [`ImageLayout`](#imagelayout) | `u32` | enum | 14 |
+| [`ImageTiling`](#imagetiling) | `u8` | enum | 2 |
+| [`ImageType`](#imagetype) | `u8` | enum | 3 |
+| [`ImageUsageFlag`](#imageusageflag) | `u16` | flags | 8 |
+| [`ImageViewType`](#imageviewtype) | `u8` | enum | 7 |
+| [`LogicOperation`](#logicoperation) | `u8` | enum | 16 |
+| [`MemoryPropertyFlag`](#memorypropertyflag) | `u8` | flags | 4 |
+| [`PhysicalDeviceType`](#physicaldevicetype) | `u8` | enum | 5 |
+| [`PipelineBindPoint`](#pipelinebindpoint) | `u8` | enum | 2 |
+| [`PipelineStageFlag`](#pipelinestageflag) | `u32` | flags | 17 |
+| [`PixelFormat`](#pixelformat) | `u32` | enum | 72 |
+| [`PolygonMode`](#polygonmode) | `u8` | enum | 3 |
+| [`PresentMode`](#presentmode) | `u32` | enum | 6 |
+| [`PrimitiveTopology`](#primitivetopology) | `u8` | enum | 6 |
+| [`QueueFlag`](#queueflag) | `u8` | flags | 6 |
+| [`ResolveModeFlag`](#resolvemodeflag) | `u8` | flags | 6 |
+| [`Result`](#result) | `i32` | enum | 36 |
+| [`SampleCountFlag`](#samplecountflag) | `u8` | flags | 7 |
+| [`SamplerAddressMode`](#sampleraddressmode) | `u8` | enum | 5 |
+| [`SamplerMipmapMode`](#samplermipmapmode) | `u8` | enum | 2 |
+| [`ShaderStageFlag`](#shaderstageflag) | `u8` | flags | 5 |
+| [`StencilFaceFlag`](#stencilfaceflag) | `u8` | flags | 3 |
+| [`VertexInputRate`](#vertexinputrate) | `u8` | enum | 2 |
+
+## `AccessFlag`
+
+Flag enumeration, underlying type `u32`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `COLOR_ATTACHMENT_READ` | `VK_ACCESS_COLOR_ATTACHMENT_READ_BIT` |
+| `COLOR_ATTACHMENT_WRITE` | `VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT` |
+| `DEPTH_STENCIL_ATTACHMENT_READ` | `VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_READ_BIT` |
+| `DEPTH_STENCIL_ATTACHMENT_WRITE` | `VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT` |
+| `HOST_READ` | `VK_ACCESS_HOST_READ_BIT` |
+| `HOST_WRITE` | `VK_ACCESS_HOST_WRITE_BIT` |
+| `INDIRECT_COMMAND_READ` | `VK_ACCESS_INDIRECT_COMMAND_READ_BIT` |
+| `INPUT_ATTACHMENT_READ` | `VK_ACCESS_INPUT_ATTACHMENT_READ_BIT` |
+| `MEMORY_READ` | `VK_ACCESS_MEMORY_READ_BIT` |
+| `MEMORY_WRITE` | `VK_ACCESS_MEMORY_WRITE_BIT` |
+| `NONE` | `0` |
+| `SHADER_READ` | `VK_ACCESS_SHADER_READ_BIT` |
+| `SHADER_WRITE` | `VK_ACCESS_SHADER_WRITE_BIT` |
+| `TRANSFER_READ` | `VK_ACCESS_TRANSFER_READ_BIT` |
+| `TRANSFER_WRITE` | `VK_ACCESS_TRANSFER_WRITE_BIT` |
+| `UNIFORM_READ` | `VK_ACCESS_UNIFORM_READ_BIT` |
+| `VERTEX_ATTRIBUTE_READ` | `VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT` |
+
+## `AttachmentLoadOperation`
+
+Enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `CLEAR` | `VK_ATTACHMENT_LOAD_OP_CLEAR` |
+| `DONT_CARE` | `VK_ATTACHMENT_LOAD_OP_DONT_CARE` |
+| `LOAD` | `VK_ATTACHMENT_LOAD_OP_LOAD` |
+
+## `AttachmentStoreOperation`
+
+Enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `DONT_CARE` | `VK_ATTACHMENT_STORE_OP_DONT_CARE` |
+| `STORE` | `VK_ATTACHMENT_STORE_OP_STORE` |
+
+## `BlendFactor`
+
+Enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `CONSTANT_ALPHA` | `VK_BLEND_FACTOR_CONSTANT_ALPHA` |
+| `CONSTANT_COLOR` | `VK_BLEND_FACTOR_CONSTANT_COLOR` |
+| `DST_ALPHA` | `VK_BLEND_FACTOR_DST_ALPHA` |
+| `DST_COLOR` | `VK_BLEND_FACTOR_DST_COLOR` |
+| `ONE` | `VK_BLEND_FACTOR_ONE` |
+| `ONE_MINUS_CONSTANT_ALPHA` | `VK_BLEND_FACTOR_ONE_MINUS_CONSTANT_ALPHA` |
+| `ONE_MINUS_CONSTANT_COLOR` | `VK_BLEND_FACTOR_ONE_MINUS_CONSTANT_COLOR` |
+| `ONE_MINUS_DST_ALPHA` | `VK_BLEND_FACTOR_ONE_MINUS_DST_ALPHA` |
+| `ONE_MINUS_DST_COLOR` | `VK_BLEND_FACTOR_ONE_MINUS_DST_COLOR` |
+| `ONE_MINUS_SRC1_ALPHA` | `VK_BLEND_FACTOR_ONE_MINUS_SRC1_ALPHA` |
+| `ONE_MINUS_SRC1_COLOR` | `VK_BLEND_FACTOR_ONE_MINUS_SRC1_COLOR` |
+| `ONE_MINUS_SRC_ALPHA` | `VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA` |
+| `ONE_MINUS_SRC_COLOR` | `VK_BLEND_FACTOR_ONE_MINUS_SRC_COLOR` |
+| `SRC1_ALPHA` | `VK_BLEND_FACTOR_SRC1_ALPHA` |
+| `SRC1_COLOR` | `VK_BLEND_FACTOR_SRC1_COLOR` |
+| `SRC_ALPHA` | `VK_BLEND_FACTOR_SRC_ALPHA` |
+| `SRC_ALPHA_SATURATE` | `VK_BLEND_FACTOR_SRC_ALPHA_SATURATE` |
+| `SRC_COLOR` | `VK_BLEND_FACTOR_SRC_COLOR` |
+| `ZERO` | `VK_BLEND_FACTOR_ZERO` |
+
+## `BlendOperation`
+
+Enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `ADD` | `VK_BLEND_OP_ADD` |
+| `MAX` | `VK_BLEND_OP_MAX` |
+| `MIN` | `VK_BLEND_OP_MIN` |
+| `REVERSE_SUBTRACT` | `VK_BLEND_OP_REVERSE_SUBTRACT` |
+| `SUBTRACT` | `VK_BLEND_OP_SUBTRACT` |
+
+## `BorderColor`
+
+Enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `FLOAT_OPAQUE_BLACK` | `VK_BORDER_COLOR_FLOAT_OPAQUE_BLACK` |
+| `FLOAT_OPAQUE_WHITE` | `VK_BORDER_COLOR_FLOAT_OPAQUE_WHITE` |
+| `FLOAT_TRANSPARENT_BLACK` | `VK_BORDER_COLOR_FLOAT_TRANSPARENT_BLACK` |
+| `INT_OPAQUE_BLACK` | `VK_BORDER_COLOR_INT_OPAQUE_BLACK` |
+| `INT_OPAQUE_WHITE` | `VK_BORDER_COLOR_INT_OPAQUE_WHITE` |
+| `INT_TRANSPARENT_BLACK` | `VK_BORDER_COLOR_INT_TRANSPARENT_BLACK` |
+
+## `BufferUsageFlag`
+
+Flag enumeration, underlying type `u16`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `INDEX` | `VK_BUFFER_USAGE_INDEX_BUFFER_BIT` |
+| `INDIRECT` | `VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT` |
+| `STORAGE` | `VK_BUFFER_USAGE_STORAGE_BUFFER_BIT` |
+| `STORAGE_TEXEL` | `VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT` |
+| `TRANSFER_DST` | `VK_BUFFER_USAGE_TRANSFER_DST_BIT` |
+| `TRANSFER_SRC` | `VK_BUFFER_USAGE_TRANSFER_SRC_BIT` |
+| `UNIFORM` | `VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT` |
+| `UNIFORM_TEXEL` | `VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT` |
+| `VERTEX` | `VK_BUFFER_USAGE_VERTEX_BUFFER_BIT` |
+
+## `ColorComponentFlag`
+
+Flag enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `A` | `VK_COLOR_COMPONENT_A_BIT` |
+| `B` | `VK_COLOR_COMPONENT_B_BIT` |
+| `G` | `VK_COLOR_COMPONENT_G_BIT` |
+| `NONE` | `0` |
+| `R` | `VK_COLOR_COMPONENT_R_BIT` |
+| `RG` | `R \| G` |
+| `RGB` | `RG \| B` |
+| `RGBA` | `RGB \| A` |
+
+## `ColorSpace`
+
+Enumeration, underlying type `u32`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `ADOBERGB_LINEAR` | `VK_COLOR_SPACE_ADOBERGB_LINEAR_EXT` |
+| `ADOBERGB_NONLINEAR` | `VK_COLOR_SPACE_ADOBERGB_NONLINEAR_EXT` |
+| `BT2020_LINEAR` | `VK_COLOR_SPACE_BT2020_LINEAR_EXT` |
+| `BT709_LINEAR` | `VK_COLOR_SPACE_BT709_LINEAR_EXT` |
+| `BT709_NONLINEAR` | `VK_COLOR_SPACE_BT709_NONLINEAR_EXT` |
+| `DCI_P3_NONLINEAR` | `VK_COLOR_SPACE_DCI_P3_NONLINEAR_EXT` |
+| `DISPLAY_NATIVE_AMD` | `VK_COLOR_SPACE_DISPLAY_NATIVE_AMD` |
+| `DISPLAY_P3_LINEAR` | `VK_COLOR_SPACE_DISPLAY_P3_LINEAR_EXT` |
+| `DISPLAY_P3_NONLINEAR` | `VK_COLOR_SPACE_DISPLAY_P3_NONLINEAR_EXT` |
+| `DOLBYVISION` | `VK_COLOR_SPACE_DOLBYVISION_EXT` |
+| `EXTENDED_SRGB_LINEAR` | `VK_COLOR_SPACE_EXTENDED_SRGB_LINEAR_EXT` |
+| `EXTENDED_SRGB_NONLINEAR` | `VK_COLOR_SPACE_EXTENDED_SRGB_NONLINEAR_EXT` |
+| `HDR10_HLG` | `VK_COLOR_SPACE_HDR10_HLG_EXT` |
+| `HDR10_ST2084` | `VK_COLOR_SPACE_HDR10_ST2084_EXT` |
+| `PASS_THROUGH` | `VK_COLOR_SPACE_PASS_THROUGH_EXT` |
+| `SRGB_NONLINEAR` | `VK_COLOR_SPACE_SRGB_NONLINEAR_KHR` |
+
+## `CommandBufferLevel`
+
+Enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `PRIMARY` | `VK_COMMAND_BUFFER_LEVEL_PRIMARY` |
+| `SECONDARY` | `VK_COMMAND_BUFFER_LEVEL_SECONDARY` |
+
+## `CompareOperation`
+
+Enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `ALWAYS` | `VK_COMPARE_OP_ALWAYS` |
+| `EQUAL` | `VK_COMPARE_OP_EQUAL` |
+| `GREATER` | `VK_COMPARE_OP_GREATER` |
+| `GREATER_OR_EQUAL` | `VK_COMPARE_OP_GREATER_OR_EQUAL` |
+| `LESS` | `VK_COMPARE_OP_LESS` |
+| `LESS_OR_EQUAL` | `VK_COMPARE_OP_LESS_OR_EQUAL` |
+| `NEVER` | `VK_COMPARE_OP_NEVER` |
+| `NOT_EQUAL` | `VK_COMPARE_OP_NOT_EQUAL` |
+
+## `CullModeFlag`
+
+Flag enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `BACK` | `VK_CULL_MODE_BACK_BIT` |
+| `FRONT` | `VK_CULL_MODE_FRONT_BIT` |
+| `FRONT_BACK` | `FRONT \| BACK` |
+| `NONE` | `0` |
+
+## `DebugObjectType`
+
+Enumeration, underlying type `u32`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `BUFFER` | `VK_OBJECT_TYPE_BUFFER` |
+| `BUFFER_VIEW` | `VK_OBJECT_TYPE_BUFFER_VIEW` |
+| `COMMAND_BUFFER` | `VK_OBJECT_TYPE_COMMAND_BUFFER` |
+| `COMMAND_POOL` | `VK_OBJECT_TYPE_COMMAND_POOL` |
+| `DEBUG_REPORT_CALLBACK` | `VK_OBJECT_TYPE_DEBUG_REPORT_CALLBACK_EXT` |
+| `DEBUG_UTILS_MESSENGER` | `VK_OBJECT_TYPE_DEBUG_UTILS_MESSENGER_EXT` |
+| `DESCRIPTOR_POOL` | `VK_OBJECT_TYPE_DESCRIPTOR_POOL` |
+| `DESCRIPTOR_SET` | `VK_OBJECT_TYPE_DESCRIPTOR_SET` |
+| `DESCRIPTOR_SET_LAYOUT` | `VK_OBJECT_TYPE_DESCRIPTOR_SET_LAYOUT` |
+| `DEVICE` | `VK_OBJECT_TYPE_DEVICE` |
+| `DEVICE_MEMORY` | `VK_OBJECT_TYPE_DEVICE_MEMORY` |
+| `DISPLAY` | `VK_OBJECT_TYPE_DISPLAY_KHR` |
+| `EVENT` | `VK_OBJECT_TYPE_EVENT` |
+| `FENCE` | `VK_OBJECT_TYPE_FENCE` |
+| `FRAMEBUFFER` | `VK_OBJECT_TYPE_FRAMEBUFFER` |
+| `IMAGE` | `VK_OBJECT_TYPE_IMAGE` |
+| `IMAGE_VIEW` | `VK_OBJECT_TYPE_IMAGE_VIEW` |
+| `INSTANCE` | `VK_OBJECT_TYPE_INSTANCE` |
+| `PHYSICAL_DEVICE` | `VK_OBJECT_TYPE_PHYSICAL_DEVICE` |
+| `PIPELINE` | `VK_OBJECT_TYPE_PIPELINE` |
+| `PIPELINE_CACHE` | `VK_OBJECT_TYPE_PIPELINE_CACHE` |
+| `PIPELINE_LAYOUT` | `VK_OBJECT_TYPE_PIPELINE_LAYOUT` |
+| `QUERY_POOL` | `VK_OBJECT_TYPE_QUERY_POOL` |
+| `QUEUE` | `VK_OBJECT_TYPE_QUEUE` |
+| `RENDER_PASS` | `VK_OBJECT_TYPE_RENDER_PASS` |
+| `SAMPLER` | `VK_OBJECT_TYPE_SAMPLER` |
+| `SEMAPHORE` | `VK_OBJECT_TYPE_SEMAPHORE` |
+| `SHADER_MODULE` | `VK_OBJECT_TYPE_SHADER_MODULE` |
+| `SURFACE` | `VK_OBJECT_TYPE_SURFACE_KHR` |
+| `SWAPCHAIN` | `VK_OBJECT_TYPE_SWAPCHAIN_KHR` |
+| `UNKNOWN` | `VK_OBJECT_TYPE_UNKNOWN` |
+
+## `DependencyFlag`
+
+Flag enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `BY_REGION` | `VK_DEPENDENCY_BY_REGION_BIT` |
+| `DEVICE_GROUP` | `VK_DEPENDENCY_DEVICE_GROUP_BIT` |
+| `NONE` | `0` |
+| `VIEW_LOCAL` | `VK_DEPENDENCY_VIEW_LOCAL_BIT` |
+
+## `DescriptorType`
+
+Enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `COMBINED_IMAGE_SAMPLER` | `VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER` |
+| `INPUT_ATTACHMENT` | `VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT` |
+| `SAMPLED_IMAGE` | `VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE` |
+| `SAMPLER` | `VK_DESCRIPTOR_TYPE_SAMPLER` |
+| `STORAGE_BUFFER` | `VK_DESCRIPTOR_TYPE_STORAGE_BUFFER` |
+| `STORAGE_BUFFER_DYNAMIC` | `VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC` |
+| `STORAGE_IMAGE` | `VK_DESCRIPTOR_TYPE_STORAGE_IMAGE` |
+| `STORAGE_TEXEL_BUFFER` | `VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER` |
+| `UNIFORM_BUFFER` | `VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER` |
+| `UNIFORM_BUFFER_DYNAMIC` | `VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC` |
+| `UNIFORM_TEXEL_BUFFER` | `VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER` |
+
+## `DynamicState`
+
+Enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `BLEND_CONSTANTS` | `VK_DYNAMIC_STATE_BLEND_CONSTANTS` |
+| `DEPTH_BIAS` | `VK_DYNAMIC_STATE_DEPTH_BIAS` |
+| `DEPTH_BOUNDS` | `VK_DYNAMIC_STATE_DEPTH_BOUNDS` |
+| `LINE_WIDTH` | `VK_DYNAMIC_STATE_LINE_WIDTH` |
+| `SCISSOR` | `VK_DYNAMIC_STATE_SCISSOR` |
+| `STENCIL_COMPARE_MASK` | `VK_DYNAMIC_STATE_STENCIL_COMPARE_MASK` |
+| `STENCIL_REFERENCE` | `VK_DYNAMIC_STATE_STENCIL_REFERENCE` |
+| `STENCIL_WRITE_MASK` | `VK_DYNAMIC_STATE_STENCIL_WRITE_MASK` |
+| `VIEWPORT` | `VK_DYNAMIC_STATE_VIEWPORT` |
+
+## `Filter`
+
+Enumeration, underlying type `u32`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `CUBIC_IMG` | `VK_FILTER_CUBIC_IMG` |
+| `LINEAR` | `VK_FILTER_LINEAR` |
+| `NEAREST` | `VK_FILTER_NEAREST` |
+
+## `FormatFeatureFlag`
+
+Flag enumeration, underlying type `u32`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `BLIT_DST` | `VK_FORMAT_FEATURE_BLIT_DST_BIT` |
+| `BLIT_SRC` | `VK_FORMAT_FEATURE_BLIT_SRC_BIT` |
+| `COLOR_ATTACHMENT` | `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT` |
+| `COLOR_ATTACHMENT_BLEND` | `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT` |
+| `COSITED_CHROMA_SAMPLES` | `VK_FORMAT_FEATURE_COSITED_CHROMA_SAMPLES_BIT` |
+| `DEPTH_STENCIL_ATTACHMENT` | `VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT` |
+| `DISJOINT` | `VK_FORMAT_FEATURE_DISJOINT_BIT` |
+| `MIDPOINT_CHROMA_SAMPLES` | `VK_FORMAT_FEATURE_MIDPOINT_CHROMA_SAMPLES_BIT` |
+| `SAMPLED_IMAGE` | `VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT` |
+| `SAMPLED_IMAGE_FILTER_LINEAR` | `VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT` |
+| `SAMPLED_IMAGE_FILTER_MINMAX` | `VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_MINMAX_BIT` |
+| `SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT` | `VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_BIT` |
+| `SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE` | `VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_BIT` |
+| `SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER` | `VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_BIT` |
+| `SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER` | `VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_BIT` |
+| `STORAGE_IMAGE` | `VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT` |
+| `STORAGE_IMAGE_ATOMIC` | `VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT` |
+| `STORAGE_TEXEL_BUFFER` | `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT` |
+| `STORAGE_TEXEL_BUFFER_ATOMIC` | `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT` |
+| `TRANSFER_DST` | `VK_FORMAT_FEATURE_TRANSFER_DST_BIT` |
+| `TRANSFER_SRC` | `VK_FORMAT_FEATURE_TRANSFER_SRC_BIT` |
+| `UNIFORM_TEXEL_BUFFER` | `VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT` |
+| `VERTEX_BUFFER` | `VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT` |
+
+## `FrontFace`
+
+Enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `CLOCKWISE` | `VK_FRONT_FACE_CLOCKWISE` |
+| `COUNTER_CLOCKWISE` | `VK_FRONT_FACE_COUNTER_CLOCKWISE` |
+
+## `GeometryFlag`
+
+Flag enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `NO_DUPLICATE_ANY_HIT_INVOCATION` | `VK_GEOMETRY_NO_DUPLICATE_ANY_HIT_INVOCATION_BIT_KHR` |
+| `OPAQUE` | `VK_GEOMETRY_OPAQUE_BIT_KHR` |
+
+## `GeometryType`
+
+Enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `AABBS` | `VK_GEOMETRY_TYPE_AABBS_KHR` |
+| `INSTANCES` | `VK_GEOMETRY_TYPE_INSTANCES_KHR` |
+| `TRIANGLES` | `VK_GEOMETRY_TYPE_TRIANGLES_KHR` |
+
+## `ImageAspectFlag`
+
+Flag enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `COLOR` | `VK_IMAGE_ASPECT_COLOR_BIT` |
+| `DEPTH` | `VK_IMAGE_ASPECT_DEPTH_BIT` |
+| `NONE` | `VK_IMAGE_ASPECT_NONE_KHR` |
+| `STENCIL` | `VK_IMAGE_ASPECT_STENCIL_BIT` |
+
+## `ImageCreateFlag`
+
+Flag enumeration, underlying type `u16`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `ALIAS` | `VK_IMAGE_CREATE_ALIAS_BIT` |
+| `ARRAY_2D_COMPATIBLE` | `VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT` |
+| `BLOCK_TEXEL_VIEW_COMPATIBLE` | `VK_IMAGE_CREATE_BLOCK_TEXEL_VIEW_COMPATIBLE_BIT` |
+| `CUBE_COMPATIBLE` | `VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT` |
+| `DISJOINT` | `VK_IMAGE_CREATE_DISJOINT_BIT` |
+| `EXTENDED_USAGE` | `VK_IMAGE_CREATE_EXTENDED_USAGE_BIT` |
+| `MUTABLE_FORMAT` | `VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT` |
+| `NONE` | `0` |
+| `PROTECTED` | `VK_IMAGE_CREATE_PROTECTED_BIT` |
+| `SPARSE_ALIASED` | `VK_IMAGE_CREATE_SPARSE_ALIASED_BIT` |
+| `SPARSE_BINDING` | `VK_IMAGE_CREATE_SPARSE_BINDING_BIT` |
+| `SPARSE_RESIDENCY` | `VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT` |
+| `SPLIT_INSTANCE_BIND_REGIONS` | `VK_IMAGE_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT` |
+
+## `ImageLayout`
+
+Enumeration, underlying type `u32`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `ATTACHMENT_OPTIMAL` | `VK_IMAGE_LAYOUT_ATTACHMENT_OPTIMAL` |
+| `COLOR_ATTACHMENT_OPTIMAL` | `VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL` |
+| `DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL` | `VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL` |
+| `DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL` | `VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL` |
+| `DEPTH_STENCIL_ATTACHMENT_OPTIMAL` | `VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL` |
+| `DEPTH_STENCIL_READ_ONLY_OPTIMAL` | `VK_IMAGE_LAYOUT_DEPTH_STENCIL_READ_ONLY_OPTIMAL` |
+| `GENERAL` | `VK_IMAGE_LAYOUT_GENERAL` |
+| `PREINITIALIZED` | `VK_IMAGE_LAYOUT_PREINITIALIZED` |
+| `PRESENT_SRC` | `VK_IMAGE_LAYOUT_PRESENT_SRC_KHR` |
+| `SHADER_READ_ONLY_OPTIMAL` | `VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL` |
+| `SHARED_PRESENT` | `VK_IMAGE_LAYOUT_SHARED_PRESENT_KHR` |
+| `TRANSFER_DST_OPTIMAL` | `VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL` |
+| `TRANSFER_SRC_OPTIMAL` | `VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL` |
+| `UNDEFINED` | `VK_IMAGE_LAYOUT_UNDEFINED` |
+
+## `ImageTiling`
+
+Enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `LINEAR` | `VK_IMAGE_TILING_LINEAR` |
+| `OPTIMAL` | `VK_IMAGE_TILING_OPTIMAL` |
+
+## `ImageType`
+
+Enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `T1D` | `VK_IMAGE_TYPE_1D` |
+| `T2D` | `VK_IMAGE_TYPE_2D` |
+| `T3D` | `VK_IMAGE_TYPE_3D` |
+
+## `ImageUsageFlag`
+
+Flag enumeration, underlying type `u16`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `COLOR_ATTACHMENT` | `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` |
+| `DEPTH_STENCIL_ATTACHMENT` | `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` |
+| `INPUT_ATTACHMENT` | `VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` |
+| `SAMPLED` | `VK_IMAGE_USAGE_SAMPLED_BIT` |
+| `STORAGE` | `VK_IMAGE_USAGE_STORAGE_BIT` |
+| `TRANSFER_DST` | `VK_IMAGE_USAGE_TRANSFER_DST_BIT` |
+| `TRANSFER_SRC` | `VK_IMAGE_USAGE_TRANSFER_SRC_BIT` |
+| `TRANSIENT_ATTACHMENT` | `VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT` |
+
+## `ImageViewType`
+
+Enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `CUBE` | `VK_IMAGE_VIEW_TYPE_CUBE` |
+| `CUBE_ARRAY` | `VK_IMAGE_VIEW_TYPE_CUBE_ARRAY` |
+| `T1D` | `VK_IMAGE_VIEW_TYPE_1D` |
+| `T1D_ARRAY` | `VK_IMAGE_VIEW_TYPE_1D_ARRAY` |
+| `T2D` | `VK_IMAGE_VIEW_TYPE_2D` |
+| `T2D_ARRAY` | `VK_IMAGE_VIEW_TYPE_2D_ARRAY` |
+| `T3D` | `VK_IMAGE_VIEW_TYPE_3D` |
+
+## `LogicOperation`
+
+Enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `AND` | `VK_LOGIC_OP_AND` |
+| `AND_INVERTED` | `VK_LOGIC_OP_AND_INVERTED` |
+| `AND_REVERSE` | `VK_LOGIC_OP_AND_REVERSE` |
+| `CLEAR` | `VK_LOGIC_OP_CLEAR` |
+| `COPY` | `VK_LOGIC_OP_COPY` |
+| `COPY_INVERTED` | `VK_LOGIC_OP_COPY_INVERTED` |
+| `EQUIVALENT` | `VK_LOGIC_OP_EQUIVALENT` |
+| `INVERT` | `VK_LOGIC_OP_INVERT` |
+| `NAND` | `VK_LOGIC_OP_NAND` |
+| `NO_OP` | `VK_LOGIC_OP_NO_OP` |
+| `NOR` | `VK_LOGIC_OP_NOR` |
+| `OR` | `VK_LOGIC_OP_OR` |
+| `OR_INVERTED` | `VK_LOGIC_OP_OR_INVERTED` |
+| `OR_REVERSE` | `VK_LOGIC_OP_OR_REVERSE` |
+| `SET` | `VK_LOGIC_OP_SET` |
+| `XOR` | `VK_LOGIC_OP_XOR` |
+
+## `MemoryPropertyFlag`
+
+Flag enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `DEVICE_LOCAL` | `VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT` |
+| `HOST_CACHED` | `VK_MEMORY_PROPERTY_HOST_CACHED_BIT` |
+| `HOST_COHERENT` | `VK_MEMORY_PROPERTY_HOST_COHERENT_BIT` |
+| `HOST_VISIBLE` | `VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT` |
+
+## `PhysicalDeviceType`
+
+Enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `CPU` | `VK_PHYSICAL_DEVICE_TYPE_CPU` |
+| `DISCRETE_GPU` | `VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU` |
+| `INTEGRATED_GPU` | `VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU` |
+| `OTHER` | `VK_PHYSICAL_DEVICE_TYPE_OTHER` |
+| `VIRTUAL_GPU` | `VK_PHYSICAL_DEVICE_TYPE_VIRTUAL_GPU` |
+
+## `PipelineBindPoint`
+
+Enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `COMPUTE` | `VK_PIPELINE_BIND_POINT_COMPUTE` |
+| `GRAPHICS` | `VK_PIPELINE_BIND_POINT_GRAPHICS` |
+
+## `PipelineStageFlag`
+
+Flag enumeration, underlying type `u32`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `ALL_COMMANDS` | `VK_PIPELINE_STAGE_ALL_COMMANDS_BIT` |
+| `ALL_GRAPHICS` | `VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT` |
+| `BOTTOM_OF_PIPE` | `VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT` |
+| `COLOR_ATTACHMENT_OUTPUT` | `VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT` |
+| `COMPUTE_SHADER` | `VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT` |
+| `DRAW_INDIRECT` | `VK_PIPELINE_STAGE_DRAW_INDIRECT_BIT` |
+| `EARLY_FRAGMENT_TESTS` | `VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT` |
+| `FRAGMENT_SHADER` | `VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT` |
+| `GEOMETRY_SHADER` | `VK_PIPELINE_STAGE_GEOMETRY_SHADER_BIT` |
+| `HOST` | `VK_PIPELINE_STAGE_HOST_BIT` |
+| `LATE_FRAGMENT_TESTS` | `VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT` |
+| `TESSELLATION_CONTROL_SHADER` | `VK_PIPELINE_STAGE_TESSELLATION_CONTROL_SHADER_BIT` |
+| `TESSELLATION_EVALUATION_SHADER` | `VK_PIPELINE_STAGE_TESSELLATION_EVALUATION_SHADER_BIT` |
+| `TOP_OF_PIPE` | `VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT` |
+| `TRANSFER` | `VK_PIPELINE_STAGE_TRANSFER_BIT` |
+| `VERTEX_INPUT` | `VK_PIPELINE_STAGE_VERTEX_INPUT_BIT` |
+| `VERTEX_SHADER` | `VK_PIPELINE_STAGE_VERTEX_SHADER_BIT` |
+
+## `PixelFormat`
+
+Enumeration, underlying type `u32`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `A1_RGB5_UNORM_PACK16` | `VK_FORMAT_A1R5G5B5_UNORM_PACK16` |
+| `A2_RGB10I_PACK32` | `VK_FORMAT_A2R10G10B10_SINT_PACK32` |
+| `A2_RGB10_SNORM_PACK32` | `VK_FORMAT_A2R10G10B10_SNORM_PACK32` |
+| `A2_RGB10_UNORM_PACK32` | `VK_FORMAT_A2R10G10B10_UNORM_PACK32` |
+| `A2_RGB10U_PACK32` | `VK_FORMAT_A2R10G10B10_UINT_PACK32` |
+| `B10_GR11UF_PACK32` | `VK_FORMAT_B10G11R11_UFLOAT_PACK32` |
+| `BGR8_UNORM` | `VK_FORMAT_B8G8R8_UNORM` |
+| `BGRA8_UNORM` | `VK_FORMAT_B8G8R8A8_UNORM` |
+| `DEPTH16_UNORM` | `VK_FORMAT_D16_UNORM` |
+| `DEPTH16_UNORM_STENCIL8U` | `VK_FORMAT_D16_UNORM_S8_UINT` |
+| `DEPTH24_UNORM_PACK32` | `VK_FORMAT_X8_D24_UNORM_PACK32` |
+| `DEPTH24_UNORM_STENCIL8U` | `VK_FORMAT_D24_UNORM_S8_UINT` |
+| `DEPTH32F` | `VK_FORMAT_D32_SFLOAT` |
+| `DEPTH32F_STENCIL8U` | `VK_FORMAT_D32_SFLOAT_S8_UINT` |
+| `R16F` | `VK_FORMAT_R16_SFLOAT` |
+| `R16I` | `VK_FORMAT_R16_SINT` |
+| `R16_SNORM` | `VK_FORMAT_R16_SNORM` |
+| `R16U` | `VK_FORMAT_R16_UINT` |
+| `R16_UNORM` | `VK_FORMAT_R16_UNORM` |
+| `R32F` | `VK_FORMAT_R32_SFLOAT` |
+| `R32I` | `VK_FORMAT_R32_SINT` |
+| `R32U` | `VK_FORMAT_R32_UINT` |
+| `R5_G6_B5_UNORM_PACK16` | `VK_FORMAT_R5G6B5_UNORM_PACK16` |
+| `R8I` | `VK_FORMAT_R8_SINT` |
+| `R8_SNORM` | `VK_FORMAT_R8_SNORM` |
+| `R8U` | `VK_FORMAT_R8_UINT` |
+| `R8_UNORM` | `VK_FORMAT_R8_UNORM` |
+| `RG16F` | `VK_FORMAT_R16G16_SFLOAT` |
+| `RG16I` | `VK_FORMAT_R16G16_SINT` |
+| `RG16_SNORM` | `VK_FORMAT_R16G16_SNORM` |
+| `RG16U` | `VK_FORMAT_R16G16_UINT` |
+| `RG16_UNORM` | `VK_FORMAT_R16G16_UNORM` |
+| `RG32F` | `VK_FORMAT_R32G32_SFLOAT` |
+| `RG32I` | `VK_FORMAT_R32G32_SINT` |
+| `RG32U` | `VK_FORMAT_R32G32_UINT` |
+| `RG8I` | `VK_FORMAT_R8G8_SINT` |
+| `RG8_SNORM` | `VK_FORMAT_R8G8_SNORM` |
+| `RG8U` | `VK_FORMAT_R8G8_UINT` |
+| `RG8_UNORM` | `VK_FORMAT_R8G8_UNORM` |
+| `RGB16F` | `VK_FORMAT_R16G16B16_SFLOAT` |
+| `RGB16I` | `VK_FORMAT_R16G16B16_SINT` |
+| `RGB16_SNORM` | `VK_FORMAT_R16G16B16_SNORM` |
+| `RGB16U` | `VK_FORMAT_R16G16B16_UINT` |
+| `RGB16_UNORM` | `VK_FORMAT_R16G16B16_UNORM` |
+| `RGB32F` | `VK_FORMAT_R32G32B32_SFLOAT` |
+| `RGB32I` | `VK_FORMAT_R32G32B32_SINT` |
+| `RGB32U` | `VK_FORMAT_R32G32B32_UINT` |
+| `RGB8I` | `VK_FORMAT_R8G8B8_SINT` |
+| `RGB8_SNORM` | `VK_FORMAT_R8G8B8_SNORM` |
+| `RGB8U` | `VK_FORMAT_R8G8B8_UINT` |
+| `RGB8_UNORM` | `VK_FORMAT_R8G8B8_UNORM` |
+| `RGBA16F` | `VK_FORMAT_R16G16B16A16_SFLOAT` |
+| `RGBA16I` | `VK_FORMAT_R16G16B16A16_SINT` |
+| `RGBA16_SNORM` | `VK_FORMAT_R16G16B16A16_SNORM` |
+| `RGBA16U` | `VK_FORMAT_R16G16B16A16_UINT` |
+| `RGBA16_UNORM` | `VK_FORMAT_R16G16B16A16_UNORM` |
+| `RGBA32F` | `VK_FORMAT_R32G32B32A32_SFLOAT` |
+| `RGBA32I` | `VK_FORMAT_R32G32B32A32_SINT` |
+| `RGBA32U` | `VK_FORMAT_R32G32B32A32_UINT` |
+| `RGBA4_UNORM_PACK16` | `VK_FORMAT_R4G4B4A4_UNORM_PACK16` |
+| `RGBA8I` | `VK_FORMAT_R8G8B8A8_SINT` |
+| `RGBA8_SNORM` | `VK_FORMAT_R8G8B8A8_SNORM` |
+| `RGBA8U` | `VK_FORMAT_R8G8B8A8_UINT` |
+| `RGBA8_UNORM` | `VK_FORMAT_R8G8B8A8_UNORM` |
+| `S8U` | `VK_FORMAT_S8_UINT` |
+| `SBGR8` | `VK_FORMAT_B8G8R8_SRGB` |
+| `SBGRA8` | `VK_FORMAT_B8G8R8A8_SRGB` |
+| `SR8` | `VK_FORMAT_R8_SRGB` |
+| `SRG8` | `VK_FORMAT_R8G8_SRGB` |
+| `SRGB8` | `VK_FORMAT_R8G8B8_SRGB` |
+| `SRGBA8` | `VK_FORMAT_R8G8B8A8_SRGB` |
+| `UNDEFINED` | `VK_FORMAT_UNDEFINED` |
+
+## `PolygonMode`
+
+Enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `FILL` | `VK_POLYGON_MODE_FILL` |
+| `LINE` | `VK_POLYGON_MODE_LINE` |
+| `POINT` | `VK_POLYGON_MODE_POINT` |
+
+## `PresentMode`
+
+Enumeration, underlying type `u32`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `FIFO` | `VK_PRESENT_MODE_FIFO_KHR` |
+| `FIFO_RELAXED` | `VK_PRESENT_MODE_FIFO_RELAXED_KHR` |
+| `IMMEDIATE` | `VK_PRESENT_MODE_IMMEDIATE_KHR` |
+| `MAILBOX` | `VK_PRESENT_MODE_MAILBOX_KHR` |
+| `SHARED_CONTINUOUS_REFRESH` | `VK_PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR` |
+| `SHARED_DEMAND_REFRESH` | `VK_PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR` |
+
+## `PrimitiveTopology`
+
+Enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `LINE_LIST` | `VK_PRIMITIVE_TOPOLOGY_LINE_LIST` |
+| `LINE_STRIP` | `VK_PRIMITIVE_TOPOLOGY_LINE_STRIP` |
+| `POINT_LIST` | `VK_PRIMITIVE_TOPOLOGY_POINT_LIST` |
+| `TRIANGLE_FAN` | `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_FAN` |
+| `TRIANGLE_LIST` | `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST` |
+| `TRIANGLE_STRIP` | `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP` |
+
+## `QueueFlag`
+
+Flag enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `COMPUTE` | `VK_QUEUE_COMPUTE_BIT` |
+| `GRAPHICS` | `VK_QUEUE_GRAPHICS_BIT` |
+| `NONE` | `0` |
+| `PROTECTED` | `VK_QUEUE_PROTECTED_BIT` |
+| `SPARSE_BINDING` | `VK_QUEUE_SPARSE_BINDING_BIT` |
+| `TRANSFER` | `VK_QUEUE_TRANSFER_BIT` |
+
+## `ResolveModeFlag`
+
+Flag enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `AVERAGE` | `VK_RESOLVE_MODE_AVERAGE_BIT` |
+| `EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID` | `VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID` |
+| `MAX` | `VK_RESOLVE_MODE_MAX_BIT` |
+| `MIN` | `VK_RESOLVE_MODE_MIN_BIT` |
+| `NONE` | `VK_RESOLVE_MODE_NONE` |
+| `SAMPLE_ZERO` | `VK_RESOLVE_MODE_SAMPLE_ZERO_BIT` |
+
+## `Result`
+
+Enumeration, underlying type `i32`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `ERROR_DEVICE_LOST` | `VK_ERROR_DEVICE_LOST` |
+| `ERROR_EXTENSION_NOT_PRESENT` | `VK_ERROR_EXTENSION_NOT_PRESENT` |
+| `ERROR_FEATURE_NOT_PRESENT` | `VK_ERROR_FEATURE_NOT_PRESENT` |
+| `ERROR_FORMAT_NOT_SUPPORTED` | `VK_ERROR_FORMAT_NOT_SUPPORTED` |
+| `ERROR_FRAGMENTATION` | `VK_ERROR_FRAGMENTATION` |
+| `ERROR_FRAGMENTED_POOL` | `VK_ERROR_FRAGMENTED_POOL` |
+| `ERROR_FULLSCREEN_EXCLUSIVE_MODE_LOST` | `VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT` |
+| `ERROR_INCOMPATIBLE_DISPLAY` | `VK_ERROR_INCOMPATIBLE_DISPLAY_KHR` |
+| `ERROR_INCOMPATIBLE_DRIVER` | `VK_ERROR_INCOMPATIBLE_DRIVER` |
+| `ERROR_INITIALIZATION_FAILED` | `VK_ERROR_INITIALIZATION_FAILED` |
+| `ERROR_INVALID_EXTERNAL_HANDLE` | `VK_ERROR_INVALID_EXTERNAL_HANDLE` |
+| `ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS` | `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS` |
+| `ERROR_LAYER_NOT_PRESENT` | `VK_ERROR_LAYER_NOT_PRESENT` |
+| `ERROR_MEMORY_MAP_FAILED` | `VK_ERROR_MEMORY_MAP_FAILED` |
+| `ERROR_NATIVE_WINDOW_IN_USE` | `VK_ERROR_NATIVE_WINDOW_IN_USE_KHR` |
+| `ERROR_NOT_PERMITTED` | `VK_ERROR_NOT_PERMITTED` |
+| `ERROR_OUT_OF_DATE` | `VK_ERROR_OUT_OF_DATE_KHR` |
+| `ERROR_OUT_OF_DEVICE_MEMORY` | `VK_ERROR_OUT_OF_DEVICE_MEMORY` |
+| `ERROR_OUT_OF_HOST_MEMORY` | `VK_ERROR_OUT_OF_HOST_MEMORY` |
+| `ERROR_OUT_OF_POOL_MEMORY` | `VK_ERROR_OUT_OF_POOL_MEMORY` |
+| `ERROR_SURFACE_LOST` | `VK_ERROR_SURFACE_LOST_KHR` |
+| `ERROR_TOO_MANY_OBJECTS` | `VK_ERROR_TOO_MANY_OBJECTS` |
+| `ERROR_UNKNOWN` | `VK_ERROR_UNKNOWN` |
+| `ERROR_VALIDATION_FAILED` | `VK_ERROR_VALIDATION_FAILED_EXT` |
+| `EVENT_RESET` | `VK_EVENT_RESET` |
+| `EVENT_SET` | `VK_EVENT_SET` |
+| `INCOMPLETE` | `VK_INCOMPLETE` |
+| `NOT_READY` | `VK_NOT_READY` |
+| `OPERATION_DEFERRED` | `VK_OPERATION_DEFERRED_KHR` |
+| `OPERATION_NOT_DEFERRED` | `VK_OPERATION_NOT_DEFERRED_KHR` |
+| `PIPELINE_COMPILE_REQUIRED` | `VK_PIPELINE_COMPILE_REQUIRED` |
+| `SUBOPTIMAL` | `VK_SUBOPTIMAL_KHR` |
+| `SUCCESS` | `VK_SUCCESS` |
+| `THREAD_DONE` | `VK_THREAD_DONE_KHR` |
+| `THREAD_IDLE` | `VK_THREAD_IDLE_KHR` |
+| `TIMEOUT` | `VK_TIMEOUT` |
+
+## `SampleCountFlag`
+
+Flag enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `C1` | `VK_SAMPLE_COUNT_1_BIT` |
+| `C16` | `VK_SAMPLE_COUNT_16_BIT` |
+| `C2` | `VK_SAMPLE_COUNT_2_BIT` |
+| `C32` | `VK_SAMPLE_COUNT_32_BIT` |
+| `C4` | `VK_SAMPLE_COUNT_4_BIT` |
+| `C64` | `VK_SAMPLE_COUNT_64_BIT` |
+| `C8` | `VK_SAMPLE_COUNT_8_BIT` |
+
+## `SamplerAddressMode`
+
+Enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `CLAMP_TO_BORDER` | `VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER` |
+| `CLAMP_TO_EDGE` | `VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE` |
+| `MIRROR_CLAMP_TO_EDGE` | `VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE` |
+| `MIRRORED_REPEAT` | `VK_SAMPLER_ADDRESS_MODE_MIRRORED_REPEAT` |
+| `REPEAT` | `VK_SAMPLER_ADDRESS_MODE_REPEAT` |
+
+## `SamplerMipmapMode`
+
+Enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `LINEAR` | `VK_SAMPLER_MIPMAP_MODE_LINEAR` |
+| `NEAREST` | `VK_SAMPLER_MIPMAP_MODE_NEAREST` |
+
+## `ShaderStageFlag`
+
+Flag enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `COMPUTE` | `VK_SHADER_STAGE_COMPUTE_BIT` |
+| `FRAGMENT` | `VK_SHADER_STAGE_FRAGMENT_BIT` |
+| `GEOMETRY` | `VK_SHADER_STAGE_GEOMETRY_BIT` |
+| `NONE` | `0` |
+| `VERTEX` | `VK_SHADER_STAGE_VERTEX_BIT` |
+
+## `StencilFaceFlag`
+
+Flag enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `BACK` | `VK_STENCIL_FACE_BACK_BIT` |
+| `FRONT` | `VK_STENCIL_FACE_FRONT_BIT` |
+| `FRONT_AND_BACK` | `FRONT \| BACK` |
+
+## `VertexInputRate`
+
+Enumeration, underlying type `u8`.
+
+| Enumerator | Vulkan value |
+| --- | --- |
+| `INSTANCE` | `VK_VERTEX_INPUT_RATE_INSTANCE` |
+| `VERTEX` | `VK_VERTEX_INPUT_RATE_VERTEX` |

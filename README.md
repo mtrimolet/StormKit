@@ -16,3 +16,4 @@ StormKit is my personal C++ toolkit.
 ## Getting Started
 
 - [Install](INSTALL.md)
+- [Documentation](docs/README.md)

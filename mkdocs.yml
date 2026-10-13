@@ -1,0 +1,120 @@
+site_name: StormKit
+site_description: Documentation of StormKit, a modular C++ toolkit distributed as C++ modules
+repo_url: https://github.com/TapzCrew/StormKit
+repo_name: TapzCrew/StormKit
+edit_uri: edit/develop/docs/
+
+docs_dir: docs
+site_dir: build/docs-site
+exclude_docs: |
+  tools/
+  requirements.txt
+
+theme:
+  name: material
+  language: en
+  icon:
+    logo: material/weather-lightning
+    repo: fontawesome/brands/github
+  font:
+    text: Inter
+    code: JetBrains Mono
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: amber
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: amber
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - navigation.indexes
+    - navigation.instant
+    - navigation.tracking
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+
+extra_css:
+  - assets/stormkit.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      # GitHub-compatible anchors, so that links work both here and on github.com
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.details
+
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+  anchors: warn
+
+nav:
+  - Home: README.md
+  - Start here:
+      - Getting started: getting-started.md
+      - Concepts and conventions: concepts.md
+  - Guides:
+      - core: guides/core.md
+      - main: guides/main.md
+      - math: guides/math.md
+      - log: guides/log.md
+      - image: guides/image.md
+      - wsi: guides/wsi.md
+      - gpu: guides/gpu.md
+      - entities: guides/entities.md
+      - lua: guides/lua.md
+      - test: guides/test.md
+  - Tutorials:
+      - A command-line tool: tutorials/command-line-tool.md
+      - Batch image processing: tutorials/batch-image-processing.md
+      - Software rendering in a window: tutorials/software-rendering.md
+      - A simulation with the ECS: tutorials/ecs-simulation.md
+      - Your first triangle: tutorials/vulkan-triangle.md
+      - Textures and uniforms: tutorials/textured-quad.md
+      - Scripting a window: tutorials/scripting.md
+      - Testing your own code: tutorials/testing.md
+  - Reference:
+      - stormkit.core:
+          - Foundation: reference/core-foundation.md
+          - Containers, memory & parallelism: reference/core-containers.md
+          - Meta & strings: reference/core-meta-string.md
+          - Type safety: reference/core-typesafe.md
+      - stormkit.math: reference/math.md
+      - stormkit.log: reference/log.md
+      - stormkit.image: reference/image.md
+      - stormkit.wsi: reference/wsi.md
+      - stormkit.gpu:
+          - API: reference/gpu.md
+          - Enumerations: reference/gpu-enums.md
+      - stormkit.entities: reference/entities.md
+      - stormkit.lua: reference/lua.md
+      - stormkit.main and stormkit.test: reference/main-test.md
+      - Macros: reference/macros.md
+      - Build system: reference/build.md

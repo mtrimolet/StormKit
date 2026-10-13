@@ -1,0 +1,83 @@
+/* StormKit documentation: a few touches on top of Material for MkDocs. */
+
+:root {
+    --md-text-font: "Inter", system-ui, sans-serif;
+}
+
+/* comfortable reading width; reference tables and signatures need the room */
+.md-grid {
+    max-width: 82rem;
+}
+
+.md-typeset {
+    font-size: 0.8rem;
+    line-height: 1.7;
+}
+
+.md-typeset h1 {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--md-default-fg-color);
+}
+
+.md-typeset h2 {
+    margin-top: 2.2em;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid var(--md-default-fg-color--lightest);
+    font-weight: 600;
+}
+
+/* softer code blocks */
+.md-typeset pre > code {
+    border-radius: 0.4rem;
+}
+
+.md-typeset code {
+    border-radius: 0.25rem;
+}
+
+/* tables: full width, zebra rows, no clipped signatures */
+.md-typeset table:not([class]) {
+    display: table;
+    width: 100%;
+    font-size: 0.72rem;
+    border-radius: 0.4rem;
+    overflow: hidden;
+}
+
+.md-typeset table:not([class]) th {
+    background-color: var(--md-default-fg-color--lightest);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.md-typeset table:not([class]) tbody tr:nth-child(even) {
+    background-color: var(--md-default-fg-color--lightest);
+}
+
+.md-typeset table:not([class]) td code {
+    word-break: normal;
+}
+
+/* blockquotes are used for status notes and warnings: make them stand out */
+.md-typeset blockquote {
+    margin-left: 0;
+    padding: 0.6rem 1rem;
+    border-left: 0.2rem solid var(--md-accent-fg-color);
+    border-radius: 0 0.4rem 0.4rem 0;
+    background-color: var(--md-accent-fg-color--transparent);
+    color: var(--md-default-fg-color);
+}
+
+.md-typeset blockquote > :first-child {
+    margin-top: 0;
+}
+
+.md-typeset blockquote > :last-child {
+    margin-bottom: 0;
+}
+
+/* home page: a little breathing room under the title */
+.md-content__inner > h1:first-child {
+    margin-bottom: 0.6em;
+}
